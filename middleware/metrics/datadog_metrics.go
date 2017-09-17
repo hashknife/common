@@ -5,10 +5,10 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/briandowns/hashknife/common/metrics"
 	"github.com/codegangsta/negroni"
 	kitmetrics "github.com/go-kit/kit/metrics"
 	"github.com/gorilla/mux"
+	"github.com/hashknife/common/metrics"
 	"github.com/julienschmidt/httprouter"
 )
 
