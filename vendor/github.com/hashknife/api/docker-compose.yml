@@ -1,0 +1,44 @@
+version: '2'
+services:
+  tile38:
+    image: tile38:latest
+    ports:
+      - 9851:9851
+    volumes:
+      - ravenGeoData:/data
+  graphite-statsd:
+    image: hopsoft/graphite-statsd
+    ports:
+      - 80:80
+      - 2003-2004:2003-2004
+      - 2023-2024:2023-2024
+      - 8125:8125
+      - 8126:8126
+    networks:
+      - back-tier
+  db:
+    image: postgres:9.4
+    container_name: db
+    volumes:
+      - "postgresData:/var/lib/postgresql/data"
+    networks:
+      - back-tier
+  geo-api:
+    image: geo-api:latest
+    ports:
+      - 9988:9988
+      - 9989:9989
+    networks:
+      - back-tier
+  raven-api:
+    image: raven-api:latest
+    ports:
+      - 9998:9998
+      - 9999:9999
+    networks:
+      - back-tier
+volumes:
+  ravenGeoData:
+  postgresData:
+networks:
+  back-tier:
