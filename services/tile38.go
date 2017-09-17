@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/briandowns/hashknife/common/models"
 	"github.com/garyburd/redigo/redis"
+	"github.com/hashknife/common/models"
 )
 
 // Geometry

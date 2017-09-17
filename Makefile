@@ -6,6 +6,16 @@ endif
 
 .PHONY: test
 
+ALL_PACKAGES = \
+	logger \
+	metrics \
+	middleware \
+	models \
+	notifications \
+	reports \
+	services \
+	utils
+
 TEST_LIST = $(foreach pkg, $(ALL_PACKAGES), $(pkg)_test)
 COVER_LIST = $(foreach pkg, $(ALL_PACKAGES), $(pkg)_cover)
 
@@ -17,23 +27,28 @@ gen-mocks:
 	mockery -dir=./metrics/ -all
 	mockery -dir=./models/ -all
 	mockery -dir=./middleware/ -all
+	mockery -dir=./notifications/ -all
+	mockery -dir=./reports/ -all
+	mockery -dir=./services/ -all
 	mockery -dir=./utils/ -all
 
-test:
-	if [ ! -d $(COVERAGEDIR) ]; then mkdir $(COVERAGEDIR); fi
-	AWS_ACCESS_KEY_ID=1 AWS_SECRET_ACCESS_KEY=1 go test -v ./$* -race -cover -covermode=atomic -coverprofile=$(COVERAGEDIR)/$(subst /,_,$*).coverprofile
-	$(GO) test -ldflags -s -v ./logger -race -cover -coverprofile=$(COVERAGEDIR)/logger.coverprofile
-	$(GO) test -ldflags -s -v ./metrics -race -cover -coverprofile=$(COVERAGEDIR)/metrics.coverprofile
-	$(GO) test -ldflags -s -v ./middleware -race -cover -coverprofile=$(COVERAGEDIR)/middleware.coverprofile
-	$(GO) test -ldflags -s -v ./models -race -cover -coverprofile=$(COVERAGEDIR)/models.coverprofile
-	$(GO) test -ldflags -s -v ./utils -race -cover -coverprofile=$(COVERAGEDIR)/utils.coverprofile
+.PHONY: test
+test: $(TEST_LIST)
 
-cover:
-	go tool cover -html=$(COVERAGEDIR)/logger.coverprofile -o $(COVERAGEDIR)/logger.html
-	go tool cover -html=$(COVERAGEDIR)/middleware.coverprofile -o $(COVERAGEDIR)/middleware.html
-	go tool cover -html=$(COVERAGEDIR)/metrics.coverprofile -o $(COVERAGEDIR)/metrics.html
-	go tool cover -html=$(COVERAGEDIR)/models.coverprofile -o $(COVERAGEDIR)/models.html
-	go tool cover -html=$(COVERAGEDIR)/utils.coverprofile -o $(COVERAGEDIR)/utils.html
+.PHONY: assert-no-diff
+assert-no-diff:
+	@./assert-no-diff.sh
+
+$(TEST_LIST): %_test:
+	@if [ ! -d coverage ]; then mkdir coverage; fi
+	@AWS_ACCESS_KEY_ID=1 AWS_SECRET_ACCESS_KEY=1 go test -v ./$* -race -cover -coverprofile=$(COVERAGEDIR)/$(subst /,_,$*).coverprofile
+
+
+.PHONY: cover
+cover: $(COVER_LIST)
+
+$(COVER_LIST): %_cover:
+	$(GO) tool cover -html=$(COVERAGEDIR)/$(subst /,_,$*).coverprofile -o $(COVERAGEDIR)/$(subst /,_,$*).html
 
 docs:
 	@godoc -http=:6060 2>/dev/null &

@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/briandowns/hashknife/geo-api/endpoints"
 	kitendpoint "github.com/go-kit/kit/endpoint"
+	"github.com/hashknife/geo-api/endpoints"
 )
 
 const (

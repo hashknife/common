@@ -1,11 +1,10 @@
 package services
 
 import (
-	"net/http"
-	"net/http/httptest"
 	"testing"
 
-	"github.com/briandowns/hashknife/hashknife-api/config"
+	"github.com/hashknife/api/config"
+	"github.com/hashknife/common/utils"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -17,21 +16,16 @@ type Tile38TestSuite struct {
 }
 
 // SetupSuite runs code needed for the test suite
-func (p *Tile38TestSuite) SetupSuite() {
-	p.conf = &config.Config{}
-	p.endpoint = NewTile38(p.conf)
+func (t *Tile38TestSuite) SetupSuite() {
+	t.conf = &config.Config{
+		Tile38: &config.Tile38{
+			Endpoint: utils.String("some-endpoint"),
+		},
+	}
+	t.service = NewTile38(*t.conf.Tile38.Endpoint)
 }
 
-// TestFrontendTestSuite
-func TestFTile38TestSuite(t *testing.T) {
+// TestTile38TestSuite
+func TestTile38TestSuite(t *testing.T) {
 	suite.Run(t, &Tile38TestSuite{})
-}
-
-// TestFrontend_Success
-func (p *Tile38TestSuite) TestFrontend_Success() {
-	server := httptest.NewServer(f.endpoint)
-	defer server.Close()
-	resp, err := http.Get(server.URL)
-	f.Require().NoError(err)
-	f.Require().Equal(resp.StatusCode, http.StatusOK)
 }
