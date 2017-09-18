@@ -1,0 +1,23 @@
+mode: atomic
+github.com/hashknife/common/middleware/auth.go:28.100,37.2 1 0
+github.com/hashknife/common/middleware/auth.go:40.76,41.46 1 0
+github.com/hashknife/common/middleware/auth.go:44.2,45.9 2 0
+github.com/hashknife/common/middleware/auth.go:48.2,48.35 1 0
+github.com/hashknife/common/middleware/auth.go:53.2,53.14 1 0
+github.com/hashknife/common/middleware/auth.go:41.46,43.3 1 0
+github.com/hashknife/common/middleware/auth.go:45.9,47.3 1 0
+github.com/hashknife/common/middleware/auth.go:48.35,49.33 1 0
+github.com/hashknife/common/middleware/auth.go:49.33,51.4 1 0
+github.com/hashknife/common/middleware/auth.go:57.86,58.21 1 0
+github.com/hashknife/common/middleware/auth.go:61.2,63.9 3 0
+github.com/hashknife/common/middleware/auth.go:68.2,68.12 1 0
+github.com/hashknife/common/middleware/auth.go:58.21,60.3 1 0
+github.com/hashknife/common/middleware/auth.go:63.9,65.3 1 0
+github.com/hashknife/common/middleware/auth.go:65.3,65.67 1 0
+github.com/hashknife/common/middleware/auth.go:65.67,67.3 1 0
+github.com/hashknife/common/middleware/auth.go:72.87,73.62 1 0
+github.com/hashknife/common/middleware/auth.go:73.62,74.84 1 0
+github.com/hashknife/common/middleware/auth.go:74.84,76.22 2 0
+github.com/hashknife/common/middleware/auth.go:79.4,79.29 1 0
+github.com/hashknife/common/middleware/auth.go:76.22,78.5 1 0
+github.com/hashknife/common/middleware/auth.go:85.76,90.2 4 0
